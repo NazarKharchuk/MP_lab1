@@ -7,7 +7,8 @@ int main() {
 	cout << "\tTask 1)\n";
 
 	string word, correctWord;
-	int i;
+	int i, countStop=13;
+	string stopWords[] = {"the", "for", "at", "a", "in", "is", "on", "are", "am", "do", "did", "to", "so"};
 
 	ifstream input;
 	input.open("input1.txt");
@@ -18,9 +19,11 @@ newWord:
 	i = 0;
 
 wordÑycle:
-	if(!word[i]) goto mbStopWord;
+	if (!word[i]) {
+		i = 0;
+		goto mbStopWord;
+	}
 
-	//cout << word[i] << "\t";
 	if ((word[i] >= 'a' && word[i] <= 'z') || word[i] == '-' || word[i] == '\'') {
 		correctWord += word[i++];
 		goto wordÑycle;
@@ -35,8 +38,14 @@ wordÑycle:
 	goto wordÑycle;
 
 mbStopWord:
-	cout << correctWord << endl;
+	if(stopWords[i] == correctWord || correctWord == "" || correctWord == "-" || correctWord == "\'") goto newWord;
 
+	if (i < countStop-1) {
+		i++;
+		goto mbStopWord;
+	}
+
+	cout << correctWord << endl;
 	goto newWord;
 
 point:
