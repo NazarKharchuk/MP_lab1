@@ -168,11 +168,13 @@ sort1:
 
 	i = 0;
 outPoint:
-	if (i < countWords && allCount[i]<=100) {
-		cout << allWords[i] << " - ";
-		//cout << allCount[i] << " - ";
-		//cout << allLastPages[i] << " - ";
-		cout << allPages[i] << endl;
+	if (i < countWords) {
+		if (allCount[i]<=100) {
+			cout << allWords[i] << " - ";
+			//cout << allCount[i] << " - ";
+			//cout << allLastPages[i] << " - ";
+			cout << allPages[i] << endl;
+		}
 		i++;
 		goto outPoint;
 	}
