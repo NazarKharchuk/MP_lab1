@@ -6,19 +6,33 @@ using namespace std;
 int main() {
 	cout << "\tTask 2)\n";
 
-	string word, correctWord, tempStr;
+	string word, correctWord, tempStr, tempPages;
 	int i, j, countStop = 22, tempInt, N = 25;
 	string stopWords[] = { "the", "for", "at", "a", "in", "is", "on", "are", "am", "do", "did", "to", "so", "of", "or", "not", "and", "was", "no", "but", "has", "us" };
 	int countWords = 0;
 	string* allWords = new string[countWords];
 	int* allCount = new int[countWords];
+	string* allPages = new string[countWords];
 	string* tempAllWords;
 	int* tempAllCount;
+	string* tempAllPages;
+	int lines = 1, pages;
 
 	ifstream input;
-	input.open("input1.txt");
+	input.open("input.txt");
 
-newWord:
+newLine:
+
+	if (input.peek() == '\n') {
+		lines++;
+		input.get();
+		goto newLine;
+	}
+	cout << lines << endl;
+
+	pages = lines / 45 + 1;
+	if (lines % 45 == 0) pages = lines / 45;
+
 	if (!(input >> word)) goto point;
 	correctWord = "";
 	i = 0;
@@ -43,21 +57,21 @@ word—ycle:
 	goto word—ycle;
 
 mbStopWord:
-	if (stopWords[i] == correctWord || correctWord == "" || correctWord == "-" || correctWord == "\'") goto newWord;
+	if (stopWords[i] == correctWord || correctWord == "" || correctWord == "-" || correctWord == "\'") goto newLine;
 
 	if (i < countStop - 1) {
 		i++;
 		goto mbStopWord;
 	}
 
-	//cout << correctWord << ";" << endl;
+	cout << correctWord << ";\t" << pages << endl;
 
 	i = 0;
 countPoint:
 	if (i < countWords) {
 		if (allWords[i] == correctWord) {
 			allCount[i]++;
-			goto newWord;
+			goto newLine;
 		}
 		i++;
 		goto countPoint;
@@ -81,7 +95,7 @@ copyMass:
 	delete[] allCount;
 	allWords = tempAllWords;
 	allCount = tempAllCount;
-	goto newWord;
+	goto newLine;
 
 point:
 	i = 0;
@@ -122,6 +136,7 @@ outPoint:
 
 	delete[] allWords;
 	delete[] allCount;
+	delete[] allPages;
 
 	return 0;
 }
