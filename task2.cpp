@@ -7,7 +7,7 @@ int main() {
 	cout << "\tTask 2)\n";
 
 	string word, correctWord, tempStr, tempPages, strToStr;
-	int i, j, countStop = 22, tempInt, N = 25;
+	int i, j, countStop = 22, tempInt;
 	string stopWords[] = { "the", "for", "at", "a", "in", "is", "on", "are", "am", "do", "did", "to", "so", "of", "or", "not", "and", "was", "no", "but", "has", "us" };
 	int countWords = 0;
 	string* allWords = new string[countWords];
@@ -133,7 +133,7 @@ copyMass:
 	goto newLine;
 
 point:
-/*	i = 0;
+	i = 0;
 sort1:
 	if (i < countWords)
 	{
@@ -141,7 +141,7 @@ sort1:
 	sort2:
 		if (j < countWords)
 		{
-			if (allCount[i] < allCount[j])
+			if (allWords[i] > allWords[j])
 			{
 				tempStr = allWords[i];
 				allWords[i] = allWords[j];
@@ -150,20 +150,28 @@ sort1:
 				tempInt = allCount[i];
 				allCount[i] = allCount[j];
 				allCount[j] = tempInt;
+
+				tempStr = allPages[i];
+				allPages[i] = allPages[j];
+				allPages[j] = tempStr;
+
+				/*tempInt = allLastPages[i];
+				allLastPages[i] = allLastPages[j];
+				allLastPages[j] = tempInt;*/
 			}
 			j++;
 			goto sort2;
 		}
 		i++;
 		goto sort1;
-	}*/
+	}
 
 	i = 0;
 outPoint:
-	if (i < countWords && i < N) {
+	if (i < countWords && allCount[i]<=100) {
 		cout << allWords[i] << " - ";
-		cout << allCount[i] << " - ";
-		cout << allLastPages[i] << " - ";
+		//cout << allCount[i] << " - ";
+		//cout << allLastPages[i] << " - ";
 		cout << allPages[i] << endl;
 		i++;
 		goto outPoint;
